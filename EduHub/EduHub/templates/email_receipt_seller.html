@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Sold Notification</title>
+</head>
+<body>
+    <h2>Your Product Has Been Sold</h2>
+    <p>Dear {{ seller.user.first_name }},</p>
+    <p>Your product has been sold! Here are the transaction details:</p>
+    <ul>
+        <li><strong>Product:</strong> {{ product.name }}</li>
+        <li><strong>Price:</strong> Rs. {{ amount }}</li>
+        <li><strong>Buyer:</strong> {{ buyer.user.first_name }}</li>
+        <li><strong>Transaction ID:</strong> {{ transaction.id }}</li>
+    </ul>
+    <p>Please ensure timely delivery of the product.</p>
+    <p>Best regards,<br>EduHub Team</p>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction Receipt</title>
+</head>
+<body>
+    <h2>Transaction Receipt</h2>
+    <p>Dear {{ buyer.user.first_name }},</p>
+    <p>Thank you for your purchase! Here are the details of your transaction:</p>
+    <ul>
+        <li><strong>Product:</strong> {{ product.name }}</li>
+        <li><strong>Price:</strong> Rs. {{ amount }}</li>
+        <li><strong>Seller:</strong> {{ seller.user.first_name }}</li>
+        <li><strong>Transaction ID:</strong> {{ transaction.id }}</li>
+    </ul>
+    <p>We hope you enjoy your purchase.</p>
+    <p>Best regards,<br>EduHub Team</p>
+</body>
+</html>
+

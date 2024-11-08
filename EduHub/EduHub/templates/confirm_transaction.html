@@ -1,0 +1,96 @@
+<!-- confirm_transaction.html -->
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
+                    <p class="card-text"><strong>Seller:</strong> {{ seller.user.username }}</p>
+
+                    <h5>Your Information</h5>
+                    <p><strong>Wallet Balance:</strong> ₹{{ buyer.wallet_balance }}</p>
+
+                    <div class="alert alert-warning" role="alert">
+                        Confirming this transaction will deduct ₹{{ amount }} from your wallet.
+                    </div>
+
+                    <form action="{% url 'confirm_transaction' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Confirm Order</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Error or Success Messages -->
+            {% if messages %}
+            <div class="mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+
+
+
+
+{% comment %} <!-- confirm_transaction.html -->
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>{{ product.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
+                    <p class="card-text"><strong>Seller:</strong> {{ product.seller.user.username }}</p>
+
+                    <h5>Your Information</h5>
+                    <p><strong>Wallet Balance:</strong> ₹ {{ user_profile.wallet_balance }}</p>
+
+                    <div class="alert alert-warning" role="alert">
+                        Confirming this transaction will deduct ₹{{ transaction.amount }} from your wallet.
+                    </div>
+
+                    <form action="{% url 'confirm_transaction' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Confirm Order</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Error or Success Messages -->
+            {% if messages %}
+            <div class="mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mt-2" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %} {% endcomment %}
+
+
+
+
+

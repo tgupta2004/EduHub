@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %} 
+
+{% block title %}Profile{% endblock title %}
+
+{% block body %}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Profile Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Profile Details</h3>
+                    <hr>
+                    <p><strong>PID:</strong> {{ user_profile.pid }}</p>
+                    <p><strong>Name:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Phone:</strong> {{ user_profile.phone }}</p>
+                    <p><strong>Course:</strong> {{ user_profile.course }}</p>
+                    <p><strong>Date of Birth:</strong> {{ user_profile.dob }}</p>
+                </div>
+            </div>
+
+            <!-- Wallet Section -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Wallet</h4>
+                    <hr>
+                    <p><strong>Balance:</strong> ₹{{ user_profile.wallet_balance }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="col-md-8">
+            <h3>Order History</h3>
+
+            <!-- Items Sold -->
+            <h5 class="mt-4">Items You Sold</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                            <th>Date Sold</th>
+                            <th>Buyer PID</th> <!-- Updated to Buyer PID -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sold_item in sold_items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td> <!-- Sequential numbering -->
+                            <td>{{ sold_item.name }}</td>
+                            <td>₹{{ sold_item.price }}</td>
+                            <td>{{ sold_item.date_sold }}</td>
+                            <td>{{ sold_item.buyer_pid }}</td> <!-- Display buyer_pid -->
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No items sold yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Items Bought -->
+            <h5 class="mt-4">Items You Bought</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                            <th>Date Bought</th>
+                            <th>Seller PID</th> <!-- Updated to Seller PID -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bought_item in bought_items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td> <!-- Sequential numbering -->
+                            <td>{{ bought_item.name }}</td>
+                            <td>₹{{ bought_item.price }}</td>
+                            <td>{{ bought_item.date_bought }}</td>
+                            <td>{{ bought_item.seller_pid }}</td> <!-- Display seller_pid -->
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No items bought yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock body %}
+
+
+
+
+
+
+{% comment %} 
+{% block body %}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Profile Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Profile Details</h3>
+                    <hr>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {% if user_profile.profile_image %}
+                                <img src="{{ user_profile.profile_image.url }}" alt="Profile Image" class="img-fluid rounded-circle mb-3" width="150">
+                            {% else %}
+                                <img src="default_image_url" alt="No Image" class="img-fluid rounded-circle mb-3" width="150">
+                            {% endif %}
+                            {{ form.profile_image.label }}: {{ form.profile_image }}
+                        </div>
+                        <p><strong>PID:</strong> {{ user_profile.pid }}</p>
+                        <p><strong>Name:</strong> {{ user_profile.user.username }}</p>
+                        <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+                        <p><strong>Phone:</strong> {{ form.phone }}</p>
+                        <p><strong>Course:</strong> {{ form.course }}</p>
+                        <p><strong>Date of Birth:</strong> {{ form.dob }}</p>
+                        <button type="submit" class="btn btn-primary mt-2">Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Wallet Section -->
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Wallet</h4>
+                    <hr>
+                    <p><strong>Balance:</strong> ${{ user_profile.wallet_balance }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="col-md-8">
+            <h3>Order History</h3>
+            
+            <!-- Items Sold -->
+            <h5 class="mt-4">Items You Sold</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                            <th>Date Sold</th>
+                            <th>Buyer ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sold_item in sold_items %}
+                        <tr>
+                            <td>{{ sold_item.id }}</td>
+                            <td>{{ sold_item.name }}</td>
+                            <td>{{ sold_item.price }}</td>
+                            <td>{{ sold_item.date_sold }}</td>
+                            <td>{{ sold_item.buyer_id }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% endcomment %}

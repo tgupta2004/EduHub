@@ -1,0 +1,67 @@
+<!-- product_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'default-product.jpg' %}" class="img-fluid" alt="Default Image">
+            {% endif %}
+        </div>
+        <div class="col-md-6 mb-4">
+            <h1 class="display-4">{{ product.name }}</h1>
+            <p class="h4"><strong>Price:</strong> ₹ {{ product.price }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <!-- product_detail.html -->
+            <form action="{% url 'buy_product' product.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Buy Product</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'default-product.jpg' %}" class="img-fluid" alt="Default Image">
+            {% endif %}
+        </div>
+        <div class="col-md-6 mb-4">
+            <h1 class="display-4">{{ product.name }}</h1>
+            <p class="h4"><strong>Price:</strong> ₹ {{ product.price }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <!-- product_detail.html -->
+            <form action="{% url 'buy_product' product.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Buy Product</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock body %} {% endcomment %}
+
+
+
+
+
